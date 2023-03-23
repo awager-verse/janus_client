@@ -70,6 +70,7 @@ declare namespace JanusJS {
     onlocalstream?: (stream: MediaStream) => void;
     onremotestream?: (stream: MediaStream) => void;
     ondataopen?: (label: any, protocol: any) => void;
+    onremotetrack?: (track: MediaStreamTrack, mid: any, on: any, metadata: any) => void;
     ondata?: CallableFunction;
     oncleanup?: CallableFunction;
     detached?: CallableFunction;
