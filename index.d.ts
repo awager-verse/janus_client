@@ -69,7 +69,7 @@ declare namespace JanusJS {
     onmessage?: (message: Message, jsep?: JSEP) => void;
     onlocalstream?: (stream: MediaStream) => void;
     onremotestream?: (stream: MediaStream) => void;
-    ondataopen?: CallableFunction;
+    ondataopen?: (label: any, protocol: any) => void;
     ondata?: CallableFunction;
     oncleanup?: CallableFunction;
     detached?: CallableFunction;
