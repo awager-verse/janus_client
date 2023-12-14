@@ -125,8 +125,10 @@ declare namespace JanusJS {
     muteVideo(): void;
     unmuteVideo(): void;
     getBitrate(): number;
+    getPcStats(): [];
     hangup(sendRequest?: boolean): void;
     detach(params: any): void;
+    webrtcStuff: any;
   }
 
   class Janus {
