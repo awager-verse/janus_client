@@ -1343,6 +1343,7 @@ function Janus(gatewayCallbacks) {
 						muteVideo : function(mid) { return mute(handleId, mid, true, true); },
 						unmuteVideo : function(mid) { return mute(handleId, mid, true, false); },
 						getBitrate : function(mid) { return getBitrate(handleId, mid); },
+						getPcStats: function (mid) { return getPcStats(handleId); },
 						setMaxBitrate : function(mid, bitrate) { return setBitrate(handleId, mid, bitrate); },
 						send : function(callbacks) { sendMessage(handleId, callbacks); },
 						data : function(callbacks) { sendData(handleId, callbacks); },
@@ -1421,6 +1422,7 @@ function Janus(gatewayCallbacks) {
 						muteVideo : function(mid) { return mute(handleId, mid, true, true); },
 						unmuteVideo : function(mid) { return mute(handleId, mid, true, false); },
 						getBitrate : function(mid) { return getBitrate(handleId, mid); },
+						getPcStats: function (mid) { return getPcStats(handleId); },
 						setMaxBitrate : function(mid, bitrate) { return setBitrate(handleId, mid, bitrate); },
 						send : function(callbacks) { sendMessage(handleId, callbacks); },
 						data : function(callbacks) { sendData(handleId, callbacks); },
@@ -3074,6 +3076,33 @@ function Janus(gatewayCallbacks) {
 		} else {
 			Janus.warn("Getting the video bitrate unsupported by browser");
 			return "Feature unsupported by browser";
+		}
+	}
+
+	function getPcStats(handleId) {
+		let pluginHandle = pluginHandles[handleId];
+		if(!pluginHandle || !pluginHandle.webrtcStuff) {
+			Janus.warn("Invalid handle");
+			return [];
+		}
+		let config = pluginHandle.webrtcStuff;
+		if(!config.pc) {
+			Janus.warn("Invalid PeerConnection");
+			return [];
+		}
+		if(config.pc.getStats) {
+			return pluginHandle.webrtcStuff.pc.getStats(this.stream).then((stats: any) => {
+				const mappedStats = [];
+				stats.forEach((report) => {
+					const reportName = report.type || report.id;
+					const reportItem = {};
+					reportItem[reportName] = report;
+					mappedStats.push(reportItem);
+				});
+				return mappedStats;
+			});
+		} else {
+			return [];
 		}
 	}
 
