@@ -112,6 +112,21 @@ declare namespace JanusJS {
     [otherProps: string]: any;
   }
 
+  interface WebRtcPluginData {
+    started : boolean;
+    myStream : null | MediaStream;
+    streamExternal : boolean;
+    mySdp : null | {type: string, sdp: any};
+    mediaConstraints : null | any;
+    pc : null | RTCPeerConnection;
+    dataChannelOptions: any;
+    dataChannel : any;
+    dtmfSender : any;
+    trickle : boolean;
+    iceDone : boolean;
+    bitrate: any;
+  }
+
   interface PluginHandle {
     getId(): string;
     getPlugin(): string;
@@ -128,7 +143,7 @@ declare namespace JanusJS {
     getPcStats(): [];
     hangup(sendRequest?: boolean): void;
     detach(params: any): void;
-    webrtcStuff: any;
+    webrtcStuff: WebRtcPluginData;
   }
 
   class Janus {
