@@ -1,5 +1,5 @@
 {
-  "name": "@sw-stack/janus_client",
+  "name": "@awager-verse/janus_client",
   "version": "1.0.2",
   "main": "index.js",
   "description": "",
@@ -10,6 +10,6 @@
   "author": "Softweave",
   "license": "ISC",
   "publishConfig": {
-    "@sw-stack:registry": "https://npm.pkg.github.com"
+    "@awager-verse:registry": "https://npm.pkg.github.com"
   }
 }
