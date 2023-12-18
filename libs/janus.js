@@ -3083,26 +3083,24 @@ function Janus(gatewayCallbacks) {
 		let pluginHandle = pluginHandles[handleId];
 		if(!pluginHandle || !pluginHandle.webrtcStuff) {
 			Janus.warn("Invalid handle");
-			return Promise.resolve([]);
+			return Promise.resolve({});
 		}
 		let config = pluginHandle.webrtcStuff;
 		if(!config.pc) {
 			Janus.warn("Invalid PeerConnection");
-			return Promise.resolve([]);
+			return Promise.resolve({});
 		}
 		if(config.pc.getStats) {
 			return pluginHandle.webrtcStuff.pc.getStats().then(function (stats) {
-				const mappedStats = [];
+				const mappedStats  = {};
 				stats.forEach((report) => {
 					const reportName = report.type || report.id;
-					const reportItem = {};
-					reportItem[reportName] = report;
-					mappedStats.push(reportItem);
+					mappedStats[reportName] = report;
 				});
 				return mappedStats;
 			});
 		} else {
-			return Promise.resolve([]);
+			return Promise.resolve({});
 		}
 	}
 
