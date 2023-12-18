@@ -3091,7 +3091,7 @@ function Janus(gatewayCallbacks) {
 			return [];
 		}
 		if(config.pc.getStats) {
-			return pluginHandle.webrtcStuff.pc.getStats(this.stream).then((stats: any) => {
+			return pluginHandle.webrtcStuff.pc.getStats(this.stream).then(function (stats) {
 				const mappedStats = [];
 				stats.forEach((report) => {
 					const reportName = report.type || report.id;
