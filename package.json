@@ -1,6 +1,6 @@
 {
   "name": "@awager-verse/janus_client",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "main": "index.js",
   "description": "",
   "typings": "index.d.ts",

@@ -3083,12 +3083,12 @@ function Janus(gatewayCallbacks) {
 		let pluginHandle = pluginHandles[handleId];
 		if(!pluginHandle || !pluginHandle.webrtcStuff) {
 			Janus.warn("Invalid handle");
-			return [];
+			return Promise.resolve([]);
 		}
 		let config = pluginHandle.webrtcStuff;
 		if(!config.pc) {
 			Janus.warn("Invalid PeerConnection");
-			return [];
+			return Promise.resolve([]);
 		}
 		if(config.pc.getStats) {
 			return pluginHandle.webrtcStuff.pc.getStats().then(function (stats) {
@@ -3102,7 +3102,7 @@ function Janus(gatewayCallbacks) {
 				return mappedStats;
 			});
 		} else {
-			return [];
+			return Promise.resolve([]);
 		}
 	}
 
