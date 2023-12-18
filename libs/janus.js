@@ -3092,12 +3092,9 @@ function Janus(gatewayCallbacks) {
 		}
 		if(config.pc.getStats) {
 			return pluginHandle.webrtcStuff.pc.getStats().then(function (stats) {
-				const mappedStats = [];
+        const mappedStats = [];
 				stats.forEach((report) => {
-					const reportName = report.type || report.id;
-					const reportItem = {};
-					reportItem[reportName] = report;
-					mappedStats.push(reportItem);
+					mappedStats.push(report);
 				});
 				return mappedStats;
 			});
