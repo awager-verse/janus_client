@@ -979,12 +979,17 @@ function Janus(gatewayCallbacks) {
 			ws = Janus.newWebSocket(server, 'janus-protocol');
 			wsHandlers = {
 				'error': function() {
-					Janus.error("Error connecting to the Janus WebSockets server... " + server);
+					let error = {
+						code: 404,
+						reason: `"Error connecting to the Janus WebSockets server... " + ${server}`
+					}
+					Janus.error(error);
 					if(Janus.isArray(servers) && !callbacks["reconnect"]) {
 						serversIndex++;
 						if(serversIndex === servers.length) {
 							// We tried all the servers the user gave us and they all failed
-							callbacks.error("Error connecting to any of the provided Janus servers: Is the server down?");
+							error.reason = 'Error connecting to any of the provided Janus servers: Is the server down?';
+							callbacks.error(error);
 							return;
 						}
 						// Let's try the next server
@@ -994,7 +999,7 @@ function Janus(gatewayCallbacks) {
 						}, 200);
 						return;
 					}
-					callbacks.error("Error connecting to the Janus WebSockets server: Is the server down?");
+					callbacks.error(error);
 				},
 
 				'open': function() {
